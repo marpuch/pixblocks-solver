@@ -14,7 +14,7 @@ class Board:
     def __apply_gravity(self):
         for col in range(0, self.width()):
             while self.__apply_gravity_to_column(col):
-                print("gravity applied to column {}".format(col))
+                pass
 
     def __apply_gravity_to_column(self, col) -> bool:
         last_unmovable = None

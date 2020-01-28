@@ -1,32 +1,35 @@
 from src.entity.board import Board
+import logging
 
 
 class Game:
 
     def __init__(self, board: list):
         self.last_board = Board(board)
-        self.game_log = dict.fromkeys(str(self.last_board))
+        self.game_log = {str(self.last_board): None}
 
     def play(self):
         while True:
 
             carrots = self.last_board.find_carrots()
             if not carrots:
-                print('WON!')
-                break
+                return True
 
             rabbits = self.last_board.find_rabbits()
             if not rabbits:
-                print('LOST!')
-                break
+                return False
 
             self.last_board = self.last_board.next()
             board_str = str(self.last_board)
 
             if board_str in self.game_log.keys():
-                print('Situation repeated. LOST!')
-                break
+                return False
 
-            self.game_log.update(board_str=None)
-            print(board_str)
+            self.game_log.update({board_str: None})
+
+    def trace(self):
+        if not logging.getLogger().isEnabledFor(logging.INFO):
+            return
+        for game in self.game_log.keys():
+            logging.info("\n" + game)
 

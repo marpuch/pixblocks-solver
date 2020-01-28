@@ -1,5 +1,5 @@
-from src.entity.board import Board
 from src.control.game import Game
+import logging
 
 
 def main():
@@ -8,8 +8,10 @@ def main():
                  'X...C.',
                  'X....X',
                  'XXXXXX'])
-    game.play()
+    logging.info("Game won? {}".format(game.play()))
+    game.trace()
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
     main()
